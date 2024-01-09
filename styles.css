@@ -28,7 +28,13 @@ body{
     box-shadow: 2px 2px  6px  rgb(233, 233, 244);
     overflow: hidden;
     padding: 10px;
+    max-width: 600px;
+    background-color: #e2dcf0;
+    margin: 20px auto;
+    padding-bottom: 40px;
+    font-size: 30px;
 }
+
 .heading-txt{
     color: #e9d4ef;
     font-size: 25px;
@@ -39,67 +45,41 @@ body{
     font-size: 40px;
     color: #953daa;
 }
-#timer{
-    color:rgb(249, 245, 245);
-    font-size: larger;
-    font-weight: 600;
-    padding:4px;
-    box-shadow: 0px 0px 2px 1px rgb(254, 253, 254);
-        
-}
-.question{
-    background-color: #fff;
-    color: #3e3d3d;
-    margin:8px;
-    border: 2px solid rgb(227, 111, 227);
-    border-radius: 5px;
-    padding:5px;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: sans-serif;
-    text-align: center;
-}
-.option-container{
-    display: flex;
-    flex-direction: column;
-    margin:6px 4px;    
-    width: 100%;
-    padding: 10px;
-}
-.option-container input{
-    visibility: hidden;   
-   
-}
-.option-container label{   
-    background-color: #fff;
-    color:rgb(52, 51, 51);
-   border: 2px solid rgb(227, 111, 227);
-    padding: 5px;
-    font-family: sans-serif;
-    border-radius: 3px;
-    transition: 0.5s;
-    cursor: pointer;
-}
 
-.option-container input:checked + label{
-    background-color: #ab36ce;
-    color:white;
-}
-
-#next-button{
-    padding:10px;
-    width: 90px;
+h1{
+    color:rgb(140, 72, 241);
+    font-size: 35px;
+    margin-bottom: 10%;
+ }
+ span{
+    color:rgb(41, 6, 145);
+    font-size: 40px;
+ }
+ .correct{
+    color:rgb(129, 44, 241);
+    font-size: 25px;
+    font-family: sans-serif;
+    font-weight: 500;
+ }
+ button{
+    width:100px;
     border: none;
-    background-color: #953daa;
-    color:white;
-    border-radius: 5px;
-    font-size: large;
+    background-color: rgb(206, 132, 251);
+    height: 25px;
+    border-radius: 4px;
     cursor: pointer;
-    font-family:sans-serif;
+ }
+.quiz div {
+margin-bottom: 10px;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 8px;
+background-color: #e1a7f7;  
+width: 400px;  
 }
-#next-button:hover{
-    background-color: #5613f4;
+.submit{
+width: 120px;
 }
-#next-button:active{
-    box-shadow:none;    
+ul{
+list-style-type: none;
 }
