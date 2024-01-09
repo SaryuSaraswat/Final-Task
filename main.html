@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-image: url(./img.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            margin-bottom: 1%;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        a button {
+            width: 150px;
+            height: 50px;
+            background-color: #8d0fb4;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 800px;
+            font-family: sans-serif;
+            border-radius: 6px;
+            cursor: pointer;
+            margin:50px;
+        }
+        a button:hover{
+            background-color: #b421a3;
+        }
+        @media only screen and (max-width: 600px) {
+            .container{
+                display: inherit;
+            }
+            body {
+                background-size: cover;
+                background-repeat: repeat;
+            }
+            a button {
+                margin-left: 47%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="create">
+            <a href="./Start.html">
+                <button>Create Quiz</button>
+            </a>
+        </div>
+
+        <div class="gif">
+            <img src="./giphy.gif" height="500px" width="500px">
+        </div>
+
+        <div class="start">
+            <a href="./index.html">
+                <button>Start Quiz</button>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

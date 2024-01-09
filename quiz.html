@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz-App</title>
+    <link rel="stylesheet" href="./quiz.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="heading">
+            <h4><span>Q</span>uize ?</h4>
+        </div>
+        <div class="img">
+            <img src="./quize.img">
+        </div>
+
+        <div class="user-details">
+            <span>User-Details</span>
+            <label>UserName:</label>
+            <input type="text" id="username" name="username" placeholder="Username"><br>
+            <label>Password:</label>
+            <input type="password" id="password" name="password" placeholder="Password"><br>
+            <button onclick="validateForm()">Submit</button>
+        </div>
+    </div>
+
+    <script>
+
+        function validateForm() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (username === '') {
+                alert('Please enter a username');
+            } else if (password === '') {
+                alert('Please enter a password');
+            } else if (password.length < 8) {
+                alert('Password should contain at least 8 characters');
+            } else if (!/[A-Z]/.test(password)) {
+                alert('Password should contain at least one uppercase letter');
+            } else if (!/[a-z]/.test(password)) {
+                alert('Password should contain at least one lowercase letter');
+            } else if (!/[0-9]/.test(password)) {
+                alert('Password should contain at least one digit');
+            } else if (!/[^A-Za-z0-9]/.test(password)) {
+                alert('Password should contain at least one special character');
+            } else {
+                window.location.href = 'main.html';
+            }
+        }
+    </script>
+</body>
+</html>
