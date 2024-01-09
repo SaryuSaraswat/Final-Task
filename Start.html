@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Start.css">
+    <title>Quiz App - Add Questions</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Create Quiz</h1>
+        <div class="questionbox">
+            <input class="question" type="text" id="question" placeholder="Enter your question?"><br>
+            <input type="text" id="option1" placeholder="Option 1"><br>
+            <input type="text" id="option2" placeholder="Option 2"><br>
+            <input type="text" id="option3" placeholder="Option 3"><br>
+            <input type="text" id="option4" placeholder="Option 4"><br>
+            <label class="correct" for="correct-answer">Correct Answer:</label>
+            <select id="correct-answer">
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+                <option value="4">Option 4</option>
+            </select><br>
+            <button class="addques" onclick="addQuestion()">Add Question</button>
+            <button class="submit" onclick="redirectToQuizPage()">Go to Quiz Page</button>
+        </div>
+    </div>
+
+    <script>
+        let quizData = [];
+
+        function addQuestion() {
+            const questionInput = document.getElementById("question");
+            const option1Input = document.getElementById("option1");
+            const option2Input = document.getElementById("option2");
+            const option3Input = document.getElementById("option3");
+            const option4Input = document.getElementById("option4");
+            const correctAnswerSelect = document.getElementById("correct-answer");
+            const question = questionInput.value.trim();
+            const options = [
+                option1Input.value.trim(),
+                option2Input.value.trim(),
+                option3Input.value.trim(),
+                option4Input.value.trim(),
+            ];
+            const correctAnswerIndex = parseInt(correctAnswerSelect.value, 10) - 1;
+
+            if (question && options.every(option => option !== "") && correctAnswerIndex >= 0 && correctAnswerIndex < options.length) {
+                quizData.push({ question, options, correctAnswerIndex });
+                questionInput.value = "";
+                option1Input.value = "";
+                option2Input.value = "";
+                option3Input.value = "";
+                option4Input.value = "";
+            }
+        }
+
+        function redirectToQuizPage() {
+            localStorage.setItem('quizData', JSON.stringify(quizData));
+            window.location.href = 'quizz.html';
+        }
+    </script>
+</body>
+
+</html>

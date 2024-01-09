@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Quiz App - Quiz Page</title>
+</head>
+
+<body>
+    
+    <div class="container">
+        <h1>Start <span>Q</span>uiz</h1>
+        <div class="quiz" id="quiz"></div>
+        <button class="submit" onclick="submitQuiz()">Submit Quiz</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            const quizData = JSON.parse(localStorage.getItem('quizData'));
+
+            if (!quizData || quizData.length === 0) {
+                document.getElementById("quiz").innerHTML = "No questions available!";
+                return;
+            }
+
+            const quizContainer = document.getElementById("quiz");
+
+            quizData.forEach((item, index) => {
+                const questionContainer = document.createElement("div");
+                questionContainer.className = "question-container";
+                const questionElement = document.createElement("div");
+                questionElement.innerHTML = `<strong>Q${index + 1}:</strong> ${item.question}`;
+                const optionsElement = document.createElement("ul");
+
+                item.options.forEach((option, optionIndex) => {
+                    const optionListItem = document.createElement("li");
+                    const label = String.fromCharCode(65 + optionIndex); // Convert to A, B, C, D
+                    optionListItem.innerHTML = `<label>${label}. <input type="radio" name="q${index}" value="${optionIndex}"> ${option}</label>`;
+                    optionsElement.appendChild(optionListItem);
+                });
+
+                questionContainer.appendChild(questionElement);
+                questionContainer.appendChild(optionsElement);
+                quizContainer.appendChild(questionContainer);
+            });
+        };
+
+        function submitQuiz() {
+            const resultContainer = document.getElementById("result");
+            const quizData = JSON.parse(localStorage.getItem('quizData'));
+
+            if (!quizData || quizData.length === 0) {
+                resultContainer.innerHTML = "No questions available!";
+                return;
+            }
+
+            let score = 0;
+
+            quizData.forEach((item, index) => {
+                const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+
+                if (selectedOption) {
+                    const userAnswerIndex = parseInt(selectedOption.value, 10);
+
+                    if (userAnswerIndex === item.correctAnswerIndex) {
+                        score++;
+                    }
+                }
+            });
+
+            const percentage = (score / quizData.length) * 100;
+            resultContainer.innerHTML = `Your Score: ${score}/${quizData.length} (${percentage}%)`;
+        }
+    </script>
+</body>
+
+</html>
