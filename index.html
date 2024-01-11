@@ -1,32 +1,34 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Quiz Page</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <div class="container">
-        <p class="heading-txt"><span>Q</span>uiz</p>
+        <p class="heading-txt">Quiz APP </p>
         <p id="timer"></p>
         <div class="question">
             <span id="question-number"></span>
             <span id="question-txt"></span>
         </div>
         <div class="option-container">
-            <input type="radio" name="opt" id="opt1">
+            <input type="radio" name="opt" id="opt1" value="0">
                 <label for="opt1" id="option1"></label>
-            <input type="radio" name="opt" id="opt2">
+            <input type="radio" name="opt" id="opt2"value="1">
                 <label for="opt2" id="option2"></label>
-            <input type="radio" name="opt" id="opt3">
+            <input type="radio" name="opt" id="opt3"value="2">
                 <label for="opt3" id="option3"></label>
-            <input type="radio" name="opt" id="opt4">
+            <input type="radio" name="opt" id="opt4"value="3">
                 <label for="opt4" id="option4"></label>
         </div>
         <input type="button" value="Next" id="next-button">
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

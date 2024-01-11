@@ -1,13 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Start.css">
     <title>Quiz App - Add Questions</title>
 </head>
-
 <body>
     <div class="container">
         <h1>Create Quiz</h1>
@@ -30,8 +29,6 @@
     </div>
 
     <script>
-        let quizData = [];
-
         function addQuestion() {
             const questionInput = document.getElementById("question");
             const option1Input = document.getElementById("option1");
@@ -47,9 +44,10 @@
                 option4Input.value.trim(),
             ];
             const correctAnswerIndex = parseInt(correctAnswerSelect.value, 10) - 1;
-
             if (question && options.every(option => option !== "") && correctAnswerIndex >= 0 && correctAnswerIndex < options.length) {
-                quizData.push({ question, options, correctAnswerIndex });
+                let existingData = JSON.parse(localStorage.getItem('quizData')) || [];
+                existingData.push({ question, options, correctAnswerIndex });
+                localStorage.setItem('quizData', JSON.stringify(existingData));
                 questionInput.value = "";
                 option1Input.value = "";
                 option2Input.value = "";
@@ -57,9 +55,7 @@
                 option4Input.value = "";
             }
         }
-
         function redirectToQuizPage() {
-            localStorage.setItem('quizData', JSON.stringify(quizData));
             window.location.href = 'quizz.html';
         }
     </script>

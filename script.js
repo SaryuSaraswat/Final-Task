@@ -1,3 +1,4 @@
+
 let question_number_element = document.getElementById("question-number");
 let question_txt_element = document.getElementById("question-txt");
 let option_1_element = document.getElementById("option1");
@@ -7,80 +8,72 @@ let option_4_element = document.getElementById("option4");
 let next_button = document.getElementById("next-button");
 let time_element = document.getElementById("timer");
 
-let current_question_number=0;
-let score=0;
+let currentQuestionNumber = 0;
+let score = 0;
 let time;
 const total_time = 60;
 let sec = total_time;
+let quizData;
 
-function timer(){
+window.onload = function () {
+    quizData = JSON.parse(localStorage.getItem('quizData')) || [];
+    showQuestion(); 
+};
+
+function timer() {
     time_element.innerHTML = sec;
     sec--;
-    if(sec==0){
+    if (sec == 0) {
         sec = total_time;
         clearInterval(time);
         checkIfScore();
-        current_question_number++;
+        currentQuestionNumber++;
         showQuestion();
-    }    
-}
-
-function checkIfScore(){
-    let optionIdSelected = document.querySelector('input[name = opt]:checked');
-            
-    let option_correct = quizQuestions[current_question_number].correct;
-    if(optionIdSelected!=null)
-    {            
-        if(optionIdSelected.id==option_correct){
-            score++;        
-        }
     }
 }
 
-/**
- * A function to show question and options on html page.
- */
+function checkIfScore() {
+    let optionIdSelected = document.querySelector('input[name=opt]:checked');
+    let correctAnswerIndex = quizData[currentQuestionNumber].correctAnswerIndex;
+    if (optionIdSelected != null && parseInt(optionIdSelected.value) === correctAnswerIndex) {
+        score++;
+    }
+}
 
-function showQuestion(){
-    sec = total_time; 
+function showQuestion() {
+    sec = total_time;
     clearInterval(time);
     timer();
-    time = setInterval(timer,1000);
-    //uncheck all the option seleceted
-    document.querySelectorAll("input[name = opt]").forEach(option=> option.checked=false)
-    
-    if(current_question_number>=quizQuestions.length){
+    time = setInterval(timer, 1000);
+
+    document.querySelectorAll("input[name=opt]").forEach(option => option.checked = false);
+
+    if (currentQuestionNumber >= quizData.length) {
         goToResultPage();
     }
-    //set questions and options from array
-    question_number_element.innerHTML = (current_question_number+1) + ". ";
-    question_txt_element.innerHTML = quizQuestions[current_question_number].question;
-    option_1_element.innerHTML = quizQuestions[current_question_number].opt1;
-    option_2_element.innerHTML = quizQuestions[current_question_number].opt2;
-    option_3_element.innerHTML= quizQuestions[current_question_number].opt3;
-    option_4_element.innerHTML= quizQuestions[current_question_number].opt4;
-    // time = setInterval(timer,1000);
-    
+     
+    question_number_element.innerHTML = (currentQuestionNumber + 1) + ". ";
+    question_txt_element.innerHTML = quizData[currentQuestionNumber].question;
+    option_1_element.innerHTML = quizData[currentQuestionNumber].options[0];
+    option_2_element.innerHTML = quizData[currentQuestionNumber].options[1];
+    option_3_element.innerHTML = quizData[currentQuestionNumber].options[2];
+    option_4_element.innerHTML = quizData[currentQuestionNumber].options[3];
 }
 
-/**
- * Handling Event listner on button click
- */
-next_button.addEventListener('click',()=>{
-   checkIfScore();
-    current_question_number ++;
-    if(current_question_number>=quizQuestions.length){
-        // show final answer
-        goToResultPage();        
-
-    }else{
-        //show next question
+next_button.addEventListener('click', () => {
+    checkIfScore();
+    currentQuestionNumber++;
+    if (currentQuestionNumber >= quizData.length) {
+        goToResultPage();
+    } else {
         showQuestion();
     }
-        
 });
-function goToResultPage(){
-    current_question_number = 0;
+
+function goToResultPage() {
+    currentQuestionNumber = 0;
     localStorage.setItem("score", score);
     location.href = "./resultPage.html";
 }
+
+
