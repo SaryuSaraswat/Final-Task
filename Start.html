@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,56 +6,78 @@
     <link rel="stylesheet" href="Start.css">
     <title>Quiz App - Add Questions</title>
 </head>
+
 <body>
     <div class="container">
         <h1>Create Quiz</h1>
         <div class="questionbox">
-            <input class="question" type="text" id="question" placeholder="Enter your question?"><br>
-            <input type="text" id="option1" placeholder="Option 1"><br>
-            <input type="text" id="option2" placeholder="Option 2"><br>
-            <input type="text" id="option3" placeholder="Option 3"><br>
-            <input type="text" id="option4" placeholder="Option 4"><br>
-            <label class="correct" for="correct-answer">Correct Answer:</label>
-            <select id="correct-answer">
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-                <option value="4">Option 4</option>
-            </select><br>
+            <label for="numOfQuestions">Number of Questions:</label>
+            <input type="number" id="numOfQuestions" min="1" placeholder="Enter the number of questions"><br>
+            <div id="questionsContainer"></div>
             <button class="addques" onclick="addQuestion()">Add Question</button>
             <button class="submit" onclick="redirectToQuizPage()">Go to Quiz Page</button>
         </div>
     </div>
-
     <script>
         function addQuestion() {
-            const questionInput = document.getElementById("question");
-            const option1Input = document.getElementById("option1");
-            const option2Input = document.getElementById("option2");
-            const option3Input = document.getElementById("option3");
-            const option4Input = document.getElementById("option4");
-            const correctAnswerSelect = document.getElementById("correct-answer");
-            const question = questionInput.value.trim();
-            const options = [
-                option1Input.value.trim(),
-                option2Input.value.trim(),
-                option3Input.value.trim(),
-                option4Input.value.trim(),
-            ];
-            const correctAnswerIndex = parseInt(correctAnswerSelect.value, 10) - 1;
-            if (question && options.every(option => option !== "") && correctAnswerIndex >= 0 && correctAnswerIndex < options.length) {
-                let existingData = JSON.parse(localStorage.getItem('quizData')) || [];
-                existingData.push({ question, options, correctAnswerIndex });
-                localStorage.setItem('quizData', JSON.stringify(existingData));
-                questionInput.value = "";
-                option1Input.value = "";
-                option2Input.value = "";
-                option3Input.value = "";
-                option4Input.value = "";
+            const numOfQuestionsInput = document.getElementById("numOfQuestions");
+            const numOfQuestions = parseInt(numOfQuestionsInput.value, 10);
+
+            if (numOfQuestions && numOfQuestions > 0) {
+                const questionsContainer = document.getElementById("questionsContainer");
+                questionsContainer.innerHTML = "";
+
+                for (let i = 1; i <= numOfQuestions; i++) {
+                    const questionDiv = document.createElement("div");
+                    questionDiv.className = "questionDiv";
+                    questionDiv.innerHTML = `
+                        <input class="question" type="text" id="question${i}" placeholder="Enter question ${i}"><br>
+                        <input type="text" id="option${i}1" placeholder="Option 1"><br>
+                        <input type="text" id="option${i}2" placeholder="Option 2"><br>
+                        <input type="text" id="option${i}3" placeholder="Option 3"><br>
+                        <input type="text" id="option${i}4" placeholder="Option 4"><br>
+                        <label class="correct" for="correct-answer${i}">Correct Answer:</label>
+                        <select id="correct-answer${i}">
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                        </select><br>
+                    `;
+
+                    questionsContainer.appendChild(questionDiv);
+                }
             }
         }
         function redirectToQuizPage() {
-            window.location.href = 'quizz.html';
+            const numOfQuestionsInput = document.getElementById("numOfQuestions");
+            const numOfQuestions = parseInt(numOfQuestionsInput.value, 10);
+
+            if (numOfQuestions && numOfQuestions > 0) {
+                const quizData = [];
+
+                for (let i = 1; i <= numOfQuestions; i++) {
+                    const questionInput = document.getElementById(`question${i}`);
+                    const options = [
+                        document.getElementById(`option${i}1`).value.trim(),
+                        document.getElementById(`option${i}2`).value.trim(),
+                        document.getElementById(`option${i}3`).value.trim(),
+                        document.getElementById(`option${i}4`).value.trim(),
+                    ];
+                    const correctAnswerSelect = document.getElementById(`correct-answer${i}`);
+                    const correctAnswerIndex = parseInt(correctAnswerSelect.value, 10) - 1;
+
+                    const question = questionInput.value.trim();
+
+                    if (question && options.every(option => option !== "") && correctAnswerIndex >= 0 && correctAnswerIndex < options.length) {
+                        quizData.push({ question, options, correctAnswerIndex });
+                    }
+                }
+                if (quizData.length > 0) {
+                    localStorage.setItem('quizData', JSON.stringify(quizData));
+                    window.location.href = 'quizz.html';
+                }
+            }
         }
     </script>
 </body>
